@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>imgpad</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@picocss/pico@1.5.10/css/pico.min.css"
+      integrity="sha256-AmkBgnWRWgRJIBCpCCmwuc/mbOWTWKepkFXimo1nQqk="
+      crossorigin="anonymous"
+    />
+    <script src="main.js"></script>
+  </head>
+
+  <body>
+    <main class="container">
+      <hgroup>
+        <h1>imgpad</h1>
+        <h2>pad your images</h2>
+      </hgroup>
+
+      <label>
+        Input
+        <input type="file" id="infile" />
+      </label>
+      <div>
+        <input type="number" value="16" id="aspectx" placeholder="X" />
+        <input type="number" value="9" id="aspecty" placeholder="Y" />
+      </div>
+      <label>
+        Background color
+        <input type="color" value="#ffffff" id="bgcolor" />
+      </label>
+
+      <button type="button" onclick="generate()">Preview</button>
+
+      <canvas id="canvas" style="max-width:100%"></canvas>
+
+      <button type="button" onclick="save()">Save</button>
+    </main>
+  </body>
+</html>
