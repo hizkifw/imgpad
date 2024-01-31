@@ -16,10 +16,10 @@ function computeDimensions(targetRatio, originalWidth, originalHeight) {
   return [newWidth, newHeight].map(Math.round);
 }
 
-function computeOffset(originalWidth, originalHeight, newWidth, newHeight) {
+function computeOffset(originalWidth, originalHeight, newWidth, newHeight, padding) {
   // Calculate the offset for the horizontal and vertical axis
-  let offsetX = (newWidth - originalWidth) / 2;
-  let offsetY = (newHeight - originalHeight) / 2;
+  let offsetX = padding + ((newWidth - originalWidth) / 2);
+  let offsetY = padding + ((newHeight - originalHeight) / 2);
 
   return [offsetX, offsetY].map(Math.round);
 }
@@ -30,9 +30,11 @@ async function generate() {
   const elAspY = document.querySelector("#aspecty");
   const elColor = document.querySelector("#bgcolor");
   const elBlur = document.querySelector("#bluramount");
+  const elPadding = document.querySelector("#padding");
   const elCanvas = document.querySelector("#canvas");
 
   const blurAmount = Number(elBlur.value);
+  const padAmount = Number(elPadding.value);
 
   // Get image
   const image = await new Promise((resolve) => {
@@ -47,14 +49,15 @@ async function generate() {
   // Compute canvas size
   const [targetWidth, targetHeight] = computeDimensions(
     Number(elAspX.value) / Number(elAspY.value),
-    image.width,
-    image.height,
+    image.width + (2 * padAmount),
+    image.height + (2 * padAmount),
   );
   const [offsetX, offsetY] = computeOffset(
-    image.width,
-    image.height,
+    image.width + (2 * padAmount),
+    image.height + (2 * padAmount),
     targetWidth,
     targetHeight,
+    padAmount,
   );
 
   // Set up canvas
@@ -74,7 +77,10 @@ async function generate() {
     ctx.filter = 'none';
   }
 
+  ctx.shadowBlur = blurAmount / 2;
+  ctx.shadowColor = "rgba(0, 0, 0, 0.25)";
   ctx.drawImage(image, offsetX, offsetY);
+  ctx.shadowBlur = 0;
 }
 
 function save() {

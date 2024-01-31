@@ -21,9 +21,15 @@
       Input
       <input type="file" id="infile" />
     </label>
-    <div>
-      <input type="number" value="16" id="aspectx" placeholder="X" />
-      <input type="number" value="9" id="aspecty" placeholder="Y" />
+    <div class="grid">
+      <label>
+        Aspect Ratio
+        <input type="number" value="4" id="aspectx" placeholder="X" />
+      </label>
+      <label>
+        &nbsp;
+        <input type="number" value="5" id="aspecty" placeholder="Y" />
+      </label>
     </div>
     <label>
       Background color
@@ -32,6 +38,10 @@
     <label>
       Blur amount
       <input type="range" value="0" min="0" max="100" id="bluramount" />
+    </label>
+    <label>
+      Padding
+      <input type="range" value="0" min="0" max="100" id="padding" />
     </label>
 
     <button type="button" onclick="generate()">Preview</button>
